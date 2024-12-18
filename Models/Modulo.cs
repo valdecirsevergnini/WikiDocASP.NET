@@ -3,18 +3,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WikiSistemaASP.NET.Models
 {
-    public class Modulo 
-{
-    public int Id { get; set; }
+    /// <summary>
+    /// Representa um módulo no sistema, que pode conter múltiplos tópicos.
+    /// </summary>
+    public class Modulo
+    {
+        // Chave primária do módulo
+        public int Id { get; set; }
 
-    [Required(ErrorMessage = "O nome é obrigatório.")]
-    [StringLength(200, ErrorMessage = "O nome não pode exceder 200 caracteres.")]
-    public string Nome { get; set; } = null!; // Corrigido para "Nome"
+        // Nome do módulo - obrigatório
+        [Required(ErrorMessage = "O nome é obrigatório.")]
+        [StringLength(200, ErrorMessage = "O nome não pode exceder 200 caracteres.")]
+        public string Nome { get; set; } = string.Empty;
 
-    [StringLength(1000, ErrorMessage = "A descrição não pode exceder 1000 caracteres.")]
-    public string Description { get; set; } = null!; 
+        // Descrição do módulo - opcional
+        [StringLength(1000, ErrorMessage = "A descrição não pode exceder 1000 caracteres.")]
+        public string Descricao { get; set; } = string.Empty;
 
-    public ICollection<Topico> Topicos { get; set; } = new List<Topico>();
-}
-
+        // Relacionamento com a entidade Topico: Um módulo pode conter vários tópicos
+        public ICollection<Topico> Topicos { get; set; } = new List<Topico>();
+    }
 }

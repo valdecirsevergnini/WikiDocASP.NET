@@ -10,16 +10,30 @@ namespace WikiSistemaASP.NET.Data
         {
         }
 
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Modulo> Modulos { get; set; }
-        public DbSet<Topico> Topicos { get; set; }
+        // DbSets para representar as tabelas no banco de dados
+        public DbSet<Usuario> Usuarios { get; set; } = null!;
+        public DbSet<Modulo> Modulos { get; set; } = null!;
+        public DbSet<Topico> Topicos { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configuração de relacionamento entre Modulo e Topico
             modelBuilder.Entity<Topico>()
-                .HasOne(t => t.Modulo) // Cada tópico tem um módulo
-                .WithMany(m => m.Topicos) // Um módulo pode ter muitos tópicos
+                .HasOne(t => t.Modulo) // Um Tópico pertence a um Módulo
+                .WithMany(m => m.Topicos) // Um Módulo pode ter vários Tópicos
                 .HasForeignKey(t => t.ModuloId); // Define a chave estrangeira
+            
+            // Adicionar dados iniciais para o usuário administrador
+            modelBuilder.Entity<Usuario>().HasData(
+                new Usuario
+                {
+                    Id = 1,
+                    Username = "admin",
+                    Senha = "admin123", // Senha padrão para testes
+                    Nome = "Administrador do Sistema",
+                    IsAdmin = true
+                }
+            );
         }
     }
 }

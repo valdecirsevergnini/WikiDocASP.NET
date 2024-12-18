@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cDhzP/fSsd4Xl0WxSKyTYOYbPOJDD50+bIwLFGxQ9pI=",
+  "Hash": "Q9e+vXSkFZ3b5Gaz1DDoze9eKCaYAB89yo2KL8O5kyc=",
   "Source": "WikiSistemaASP.NET",
   "BasePath": "_content/WikiSistemaASP.NET",
   "Mode": "Default",
@@ -93,12 +93,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Dell\\Documents\\GitHub\\WikiSistemaASP.NET\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\Dell\\Documents\\GitHub\\WikiSistemaASP.NET\\wwwroot\\js\\topicos.js",
       "SourceId": "WikiSistemaASP.NET",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Dell\\Documents\\GitHub\\WikiSistemaASP.NET\\wwwroot\\",
       "BasePath": "_content/WikiSistemaASP.NET",
-      "RelativePath": "js/site.js",
+      "RelativePath": "js/topicos.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,7 +109,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\site.js"
+      "OriginalItemSpec": "wwwroot\\js\\topicos.js"
     },
     {
       "Identity": "C:\\Users\\Dell\\Documents\\GitHub\\WikiSistemaASP.NET\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WikiSistemaASP.NET.Models;
 using WikiSistemaASP.NET.Data;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace WikiSistemaASP.NET.Controllers
 {
@@ -14,33 +14,42 @@ namespace WikiSistemaASP.NET.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        // Método de Login - GET
         public IActionResult Login()
         {
             return View();
         }
 
+        // Método de Login - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(Usuario usuario)
+        public async Task<IActionResult> Login(string Username, string Senha)
         {
-            // Simulação de validação de login
-            var user = _context.Usuarios.FirstOrDefault(u => u.Username == usuario.Username && u.PasswordHash == usuario.PasswordHash);
-            if (user != null)
+            // Log de depuração para verificar os valores recebidos
+            Console.WriteLine($"Tentativa de login com Username: '{Username}' e Senha: '{Senha}'");
+
+            // Verifica se os campos foram preenchidos
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Senha))
             {
-                // Armazena o ID do usuário na sessão
-                HttpContext.Session.SetInt32("UserId", user.Id);
-                return RedirectToAction("Index", "Modulo"); // Redireciona para a página de módulos após login
+                ModelState.AddModelError(string.Empty, "Preencha todos os campos.");
+                return View();
             }
 
-            ModelState.AddModelError("", "Nome de usuário ou senha inválidos.");
-            return View(usuario);
-        }
+            // Busca o usuário no banco de dados
+            var usuario = await _context.Usuarios
+                .AsNoTracking() // Evita tracking para melhor performance
+                .FirstOrDefaultAsync(u => u.Username == Username && u.Senha == Senha);
 
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Remove("UserId");
-            return RedirectToAction("Index", "Home");
+            // Verifica se encontrou o usuário
+            if (usuario != null)
+            {
+                TempData["Success"] = "Login realizado com sucesso!";
+                return RedirectToAction("Index", "Home"); // Redireciona para a Home
+            }
+
+            // Se não encontrou, exibe mensagem de erro
+            ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
+            return View();
         }
     }
 }

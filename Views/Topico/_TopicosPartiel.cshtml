@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WikiSistemaASP.NET.Models.Modulo>
+@model IEnumerable<WikiSistemaASP.NET.Models.Modulo>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -102,10 +102,9 @@
         <div class="module-list">
             <h4>Módulos</h4>
             <div id="modules-container">
-                @RenderBody()
-                @if (Model != null && Model.Any())
+                @if (Model.Any())
                 {
-                    foreach (var modulo in Model)
+                    @foreach (var modulo in Model)
                     {
                         <div class="module-item" onclick="loadTopics(@modulo.Id)">
                             @modulo.Nome
@@ -116,8 +115,6 @@
                 {
                     <p>Nenhum módulo disponível.</p>
                 }
-                            
-
             </div>
         </div>
 
@@ -136,6 +133,7 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -149,14 +147,12 @@
         }
 
         function loadTopics(moduloId) {
-            // Carrega os tópicos do módulo via AJAX
             $.get(`/Topico/GetByModuloId/${moduloId}`, function (data) {
                 $('#topics-container').html(data);
             }).fail(function () {
-                alert("Não foi possível carregar os tópicos.");
+                alert("Erro ao carregar os tópicos.");
             });
         }
     </script>
-
 </body>
 </html>

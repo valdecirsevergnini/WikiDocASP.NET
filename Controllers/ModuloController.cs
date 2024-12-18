@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using WikiSistemaASP.NET.Models;
-using WikiSistemaASP.NET.Data;
 using Microsoft.EntityFrameworkCore;
+using WikiSistemaASP.NET.Data;
+using WikiSistemaASP.NET.Models;
 
 namespace WikiSistemaASP.NET.Controllers
 {
@@ -14,25 +14,31 @@ namespace WikiSistemaASP.NET.Controllers
             _context = context;
         }
 
-        // Lista todos os módulos
-        public IActionResult Index()
+        // Página principal - Listar Módulos
+        public async Task<IActionResult> Index()
         {
-            var modulos = _context.Modulos.Include(m => m.Topicos).ToList();
+            var modulos = await _context.Modulos
+                .Include(m => m.Topicos) // Inclui os tópicos associados ao módulo
+                .ToListAsync();
             return View(modulos);
         }
 
-        // Detalhes de um módulo específico
-        public IActionResult Details(int id)
+        // Exibir detalhes de um Módulo e seus Tópicos
+        public async Task<IActionResult> Details(int id)
         {
-            var modulo = _context.Modulos.Include(m => m.Topicos).FirstOrDefault(m => m.Id == id);
+            var modulo = await _context.Modulos
+                .Include(m => m.Topicos) // Carrega os tópicos relacionados
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (modulo == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna 404 caso o módulo não seja encontrado
             }
+
             return View(modulo);
         }
 
-        // Criação de um novo módulo
+        // Criar um novo Módulo
         public IActionResult Create()
         {
             return View();
@@ -40,93 +46,47 @@ namespace WikiSistemaASP.NET.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Nome")] Modulo modulo)
+        public async Task<IActionResult> Create(Modulo modulo)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(modulo);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(modulo);
         }
 
-        // Edição de um módulo existente
-        public IActionResult Edit(int id)
+        // Criar Tópico associado a um Módulo
+        public IActionResult CreateTopico(int id)
         {
             var modulo = _context.Modulos.Find(id);
             if (modulo == null)
             {
                 return NotFound();
             }
-            return View(modulo);
+
+            ViewData["ModuloId"] = id;
+            ViewData["ModuloNome"] = modulo.Nome; // Exibe o nome do módulo no formulário
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Nome")] Modulo modulo)
+        public async Task<IActionResult> CreateTopico(Topico topico)
         {
-            if (id != modulo.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(modulo);
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Modulos.Any(e => e.Id == modulo.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Topicos.Add(topico);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details), new { id = topico.ModuloId });
             }
-            return View(modulo);
-        }
 
-        // Excluir um módulo
-        public IActionResult Delete(int id)
-        {
-            var modulo = _context.Modulos.Find(id);
-            if (modulo == null)
-            {
-                return NotFound();
-            }
-            return View(modulo);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var modulo = _context.Modulos.Find(id);
-            if (modulo != null)
-            {
-                _context.Modulos.Remove(modulo);
-                _context.SaveChanges();
-            }
-            return RedirectToAction(nameof(Index));
-        }
-        
-        // Ação para gerenciar tópicos de um módulo específico
-        public IActionResult ManageTopics(int id)
-        {
-            var modulo = _context.Modulos.Include(m => m.Topicos).FirstOrDefault(m => m.Id == id);
-            if (modulo == null)
-            {
-                return NotFound();
-            }
-            return View(modulo);
+            // Caso haja erro, recarrega as informações necessárias
+            var modulo = await _context.Modulos.FindAsync(topico.ModuloId);
+            ViewData["ModuloId"] = topico.ModuloId;
+            ViewData["ModuloNome"] = modulo?.Nome ?? "Módulo Desconhecido";
+            return View(topico);
         }
     }
 }

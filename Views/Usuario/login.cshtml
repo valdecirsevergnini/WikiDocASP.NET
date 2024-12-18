@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Wikidoc - Login";
+}
+
+<h1>Login</h1>
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label for="Username">Usuário</label>
+        <input name="Username" class="form-control" placeholder="Digite seu usuário" required />
+    </div>
+    <div class="form-group mt-3">
+        <label for="Senha">Senha</label>
+        <input name="Senha" type="password" class="form-control" placeholder="Digite sua senha" required />
+    </div>
+    <div class="form-group mt-4">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </div>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger mt-3">
+        @Html.ValidationSummary(false)
+    </div>
+}

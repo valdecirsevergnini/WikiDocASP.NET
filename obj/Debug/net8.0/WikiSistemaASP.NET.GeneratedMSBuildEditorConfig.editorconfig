@@ -18,22 +18,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Dell\Documents\GitHub\WikiSistemaASP.NET
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Detail.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,20 +26,40 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbG9naW4uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Topico/_TopicosPartiel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9waWNvXF9Ub3BpY29zUGFydGllbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Usuario/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Usuario/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Usuario/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Usuario/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Usuario/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/Usuario/login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xsb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Dell/Documents/GitHub/WikiSistemaASP.NET/Views/_ViewImports.cshtml]

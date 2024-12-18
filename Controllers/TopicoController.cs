@@ -132,5 +132,16 @@ namespace WikiSistemaASP.NET.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: /Topico/GetByModuloId/5
+        [HttpGet]
+        public IActionResult GetByModuloId(int id)
+        {
+            var topicos = _context.Topicos
+                .Where(t => t.ModuloId == id)
+                .ToList();
+
+            return PartialView("_TopicosPartial", topicos);
+        }
     }
 }
