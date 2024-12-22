@@ -1,0 +1,39 @@
+@model WikiSistemaASP.NET.Models.Modulo
+
+<h2 class="mb-4">Criar Novo Módulo</h2>
+
+<form asp-action="Create" method="post" class="mt-4">
+    <div class="form-group">
+        <label asp-for="Nome" class="control-label">Nome do Módulo</label>
+        <input asp-for="Nome" class="form-control" placeholder="Digite o nome do módulo" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-4">
+        <label asp-for="Descricao" class="control-label">Descrição</label>
+        <textarea asp-for="Descricao" class="form-control" rows="8" placeholder="Digite a descrição do módulo"></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-4 d-flex justify-content-end">
+        <button type="submit" class="btn btn-success me-3">Salvar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+<!-- Inclusão do TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/lit61m3guuexe1jumlo5wyor55xb0fh54d52e4d7q6tckc7j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'lists link image media table fullscreen',
+        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media table | fullscreen',
+        menubar: false,
+        height: 500, // Define uma altura confortável para o editor
+        width: '100%', // O editor ocupa toda a largura do formulário
+        branding: false, // Remove a marcação do TinyMCE
+        images_upload_url: '/Modulo/Upload', // Configuração para upload de imagens
+        automatic_uploads: true // Upload de imagens automático
+    });
+</script>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Q9e+vXSkFZ3b5Gaz1DDoze9eKCaYAB89yo2KL8O5kyc=",
+  "Hash": "0YqKmmGP0NVCPmWHJedaIKzGtgLmaDAD+ZvmVbXc2Z8=",
   "Source": "WikiSistemaASP.NET",
   "BasePath": "_content/WikiSistemaASP.NET",
   "Mode": "Default",
@@ -1193,6 +1193,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Dell\\Documents\\GitHub\\WikiSistemaASP.NET\\wwwroot\\uploads",
+      "SourceId": "WikiSistemaASP.NET",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Dell\\Documents\\GitHub\\WikiSistemaASP.NET\\wwwroot\\",
+      "BasePath": "_content/WikiSistemaASP.NET",
+      "RelativePath": "uploads",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads"
     }
   ]
 }

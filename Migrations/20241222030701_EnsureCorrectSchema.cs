@@ -5,24 +5,18 @@
 namespace WikiSistemaASP.NET.Migrations
 {
     /// <inheritdoc />
-    public partial class AddDescricaoToModulo : Migration
+    public partial class EnsureCorrectSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Description",
-                table: "Modulos",
-                newName: "Descricao");
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Descricao",
-                table: "Modulos",
-                newName: "Description");
+
         }
     }
 }

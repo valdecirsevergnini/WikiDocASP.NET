@@ -8,19 +8,27 @@ namespace WikiSistemaASP.NET.Models
     /// </summary>
     public class Modulo
     {
-        // Chave primária do módulo
+        /// <summary>
+        /// Chave primária do módulo.
+        /// </summary>
         public int Id { get; set; }
 
-        // Nome do módulo - obrigatório
+        /// <summary>
+        /// Nome do módulo - obrigatório.
+        /// </summary>
         [Required(ErrorMessage = "O nome é obrigatório.")]
         [StringLength(200, ErrorMessage = "O nome não pode exceder 200 caracteres.")]
         public string Nome { get; set; } = string.Empty;
 
-        // Descrição do módulo - opcional
+        /// <summary>
+        /// Descrição do módulo - opcional.
+        /// </summary>
         [StringLength(1000, ErrorMessage = "A descrição não pode exceder 1000 caracteres.")]
         public string Descricao { get; set; } = string.Empty;
 
-        // Relacionamento com a entidade Topico: Um módulo pode conter vários tópicos
-        public ICollection<Topico> Topicos { get; set; } = new List<Topico>();
+        /// <summary>
+        /// Relacionamento com a entidade Topico: Um módulo pode conter vários tópicos.
+        /// </summary>
+        public List<Topico> Topicos { get; set; } = new List<Topico>();
     }
 }

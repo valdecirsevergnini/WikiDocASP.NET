@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WikiSistemaASP.NET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe696979ea94ebe1e1cf9aeab5d99f93c7b832e7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7507f0b9b52de2cf6d8951c6da90a5f168d8e171")]
 [assembly: System.Reflection.AssemblyProductAttribute("WikiSistemaASP.NET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WikiSistemaASP.NET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

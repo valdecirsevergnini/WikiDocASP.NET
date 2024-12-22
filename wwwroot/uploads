@@ -1,0 +1,14 @@
+[HttpPost]
+public async Task<IActionResult> Upload(IFormFile file)
+{
+    if (file != null && file.Length > 0)
+    {
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", file.FileName);
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+        return Json(new { location = $"/uploads/{file.FileName}" });
+    }
+    return BadRequest("Invalid file upload.");
+}

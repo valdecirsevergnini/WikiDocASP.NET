@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WikiSistemaASP.NET.Models;
 using WikiSistemaASP.NET.Data;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -16,18 +15,17 @@ namespace WikiSistemaASP.NET.Controllers
             _context = context;
         }
 
+        // Método auxiliar para preencher a ViewBag com os módulos disponíveis
         private void PopulateModulos()
         {
-            ViewBag.ModuloId = new SelectList(_context.Modulos, "Id", "Nome");
-            ViewBag.Modulos = _context.Modulos.ToList();
+            ViewBag.ModuloId = new SelectList(_context.Modulos.OrderBy(m => m.Nome), "Id", "Nome");
         }
 
         // GET: /Topico/
         public IActionResult Index()
         {
-            PopulateModulos(); // Chama o método para preencher os módulos
             var topicos = _context.Topicos.Include(t => t.Modulo).ToList();
-            return View(topicos);
+            return View("~/Views/Topico/Index.cshtml", topicos);
         }
 
         // GET: /Topico/Details/5
@@ -36,17 +34,17 @@ namespace WikiSistemaASP.NET.Controllers
             var topico = _context.Topicos.Include(t => t.Modulo).FirstOrDefault(t => t.Id == id);
             if (topico == null)
             {
-                return NotFound();
+                TempData["MensagemErro"] = "Tópico não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
-            ViewBag.Modulos = _context.Modulos.ToList();
-            return View(topico);
+            return View("~/Views/Topico/Details.cshtml", topico);
         }
 
         // GET: /Topico/Create
         public IActionResult Create()
         {
-            PopulateModulos(); // Preenche os módulos
-            return View();
+            PopulateModulos();
+            return View("~/Views/Topico/Create.cshtml");
         }
 
         // POST: /Topico/Create
@@ -58,10 +56,12 @@ namespace WikiSistemaASP.NET.Controllers
             {
                 _context.Add(topico);
                 _context.SaveChanges();
+                TempData["MensagemSucesso"] = "Tópico criado com sucesso.";
                 return RedirectToAction(nameof(Index));
             }
-            PopulateModulos(); // Preenche os módulos em caso de erro
-            return View(topico);
+            TempData["MensagemErro"] = "Erro ao criar o tópico. Verifique os dados fornecidos.";
+            PopulateModulos();
+            return View("~/Views/Topico/Create.cshtml", topico);
         }
 
         // GET: /Topico/Edit/5
@@ -70,10 +70,11 @@ namespace WikiSistemaASP.NET.Controllers
             var topico = _context.Topicos.Include(t => t.Modulo).FirstOrDefault(t => t.Id == id);
             if (topico == null)
             {
-                return NotFound();
+                TempData["MensagemErro"] = "Tópico não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
-            PopulateModulos(); // Preenche os módulos
-            return View(topico);
+            PopulateModulos();
+            return View("~/Views/Topico/Edit.cshtml", topico);
         }
 
         // POST: /Topico/Edit/5
@@ -83,7 +84,8 @@ namespace WikiSistemaASP.NET.Controllers
         {
             if (id != topico.Id)
             {
-                return NotFound();
+                TempData["MensagemErro"] = "ID do tópico inválido.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
@@ -92,45 +94,60 @@ namespace WikiSistemaASP.NET.Controllers
                 {
                     _context.Update(topico);
                     _context.SaveChanges();
+                    TempData["MensagemSucesso"] = "Tópico editado com sucesso.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!_context.Topicos.Any(e => e.Id == topico.Id))
                     {
-                        return NotFound();
+                        TempData["MensagemErro"] = "Tópico não encontrado.";
+                        return RedirectToAction(nameof(Index));
                     }
                     throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            PopulateModulos(); // Preenche os módulos em caso de erro
-            return View(topico);
+            TempData["MensagemErro"] = "Erro ao editar o tópico. Verifique os dados fornecidos.";
+            PopulateModulos();
+            return View("~/Views/Topico/Edit.cshtml", topico);
         }
 
         // GET: /Topico/Delete/5
         public IActionResult Delete(int id)
         {
-            var topico = _context.Topicos.Find(id);
+            var topico = _context.Topicos.Include(t => t.Modulo).FirstOrDefault(t => t.Id == id);
             if (topico == null)
             {
-                return NotFound();
+                TempData["MensagemErro"] = "Tópico não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
-            ViewBag.Modulos = _context.Modulos.ToList();
-            return View(topico);
+            return View("~/Views/Topico/Delete.cshtml", topico);
         }
 
         // POST: /Topico/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var topico = _context.Topicos.Find(id);
-            if (topico != null)
+            var topico = _context.Topicos.Include(t => t.Modulo).FirstOrDefault(t => t.Id == id);
+            if (topico == null)
+            {
+                TempData["MensagemErro"] = "Erro ao excluir o tópico. Tópico não encontrado.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
             {
                 _context.Topicos.Remove(topico);
                 _context.SaveChanges();
+                TempData["MensagemSucesso"] = "Tópico excluído com sucesso.";
             }
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                TempData["MensagemErro"] = $"Erro ao excluir o tópico: {ex.Message}";
+            }
+
+            return RedirectToAction("Edit", "Modulo", new { id = topico.ModuloId });
         }
 
         // GET: /Topico/GetByModuloId/5
@@ -141,7 +158,7 @@ namespace WikiSistemaASP.NET.Controllers
                 .Where(t => t.ModuloId == id)
                 .ToList();
 
-            return PartialView("_TopicosPartial", topicos);
+            return PartialView("~/Views/Topico/_TopicosPartial.cshtml", topicos);
         }
     }
 }

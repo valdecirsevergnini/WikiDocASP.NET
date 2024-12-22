@@ -1,0 +1,44 @@
+@model WikiSistemaASP.NET.Models.Modulo
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>@Model.Nome</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Descrição:</strong> @Model.Descricao</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Tópicos</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.Topicos != null && Model.Topicos.Any())
+        {
+            <ul class="list-group">
+                @foreach (var topico in Model.Topicos)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <strong>@topico.Titulo:</strong> @topico.Conteudo
+                        </span>
+                        <div>
+                            <a asp-action="EditTopico" asp-route-id="@topico.Id" class="btn btn-warning btn-sm me-2">Editar</a>
+                            <a asp-action="DeleteTopico" asp-route-id="@topico.Id" class="btn btn-danger btn-sm">Excluir</a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Nenhum tópico cadastrado.</p>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="CreateTopico" asp-route-id="@Model.Id" class="btn btn-primary">Criar Novo Tópico</a>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</div>

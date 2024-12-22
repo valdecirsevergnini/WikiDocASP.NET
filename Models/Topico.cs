@@ -44,8 +44,8 @@ namespace WikiSistemaASP.NET.Models
 
         /// <summary>
         /// Relacionamento com a classe Modulo, indicando o módulo do tópico.
+        /// Agora opcional para evitar erro de validação.
         /// </summary>
-        [Required]
-        public Modulo Modulo { get; set; } = null!;
+        public Modulo? Modulo { get; set; }
     }
 }

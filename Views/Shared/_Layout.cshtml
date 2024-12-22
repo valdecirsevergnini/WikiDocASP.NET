@@ -1,6 +1,4 @@
-﻿@model IEnumerable<WikiSistemaASP.NET.Models.Modulo>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -35,36 +33,6 @@
             margin-bottom: 20px;
         }
 
-        .module-list {
-            flex: 1;
-            border-right: 1px solid #ccc;
-            padding: 10px;
-            max-width: 250px;
-        }
-
-        .module-list h4 {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .topic-content {
-            flex: 3;
-            padding: 10px;
-        }
-
-        .module-item {
-            cursor: pointer;
-            padding: 5px;
-            margin: 5px 0;
-            border: 1px solid transparent;
-            border-radius: 5px;
-        }
-
-        .module-item:hover {
-            background-color: #f8f9fa;
-            border-color: #ddd;
-        }
-
         footer {
             text-align: center;
             width: 100%;
@@ -83,7 +51,7 @@
                         <li class="nav-item">
                             <form asp-controller="Home" asp-action="Search" class="search-form" onsubmit="return validateSearch()">
                                 <input type="text" name="searchTerm" placeholder="Buscar..." class="form-control" id="searchTerm" />
-                                <button type="submit" class="btn btn-secondary">Buscar</button>
+                               <!-- <button type="submit" class="btn btn-secondary">Buscar</button>-->
                             </form>
                         </li>
                     </ul>
@@ -98,36 +66,17 @@
     </header>
     
     <div class="container">
-        <!-- Lista de Módulos na Esquerda -->
-        <div class="module-list">
-            <h4>Módulos</h4>
-            <div id="modules-container">
-                @RenderBody()
-                @if (Model != null && Model.Any())
-                {
-                    foreach (var modulo in Model)
-                    {
-                        <div class="module-item" onclick="loadTopics(@modulo.Id)">
-                            @modulo.Nome
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p>Nenhum módulo disponível.</p>
-                }
-                            
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
+}
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@TempData["MensagemErro"]</div>
+}
 
-            </div>
-        </div>
 
-        <!-- Conteúdo de Tópicos na Direita -->
-        <div class="topic-content">
-            <h4>Tópicos</h4>
-            <div id="topics-container">
-                <p>Selecione um módulo para ver os tópicos.</p>
-            </div>
-        </div>
+        @RenderBody()
     </div>
 
     <footer>
@@ -147,16 +96,6 @@
             }
             return true;
         }
-
-        function loadTopics(moduloId) {
-            // Carrega os tópicos do módulo via AJAX
-            $.get(`/Topico/GetByModuloId/${moduloId}`, function (data) {
-                $('#topics-container').html(data);
-            }).fail(function () {
-                alert("Não foi possível carregar os tópicos.");
-            });
-        }
     </script>
-
 </body>
 </html>

@@ -1,0 +1,44 @@
+@model IEnumerable<WikiSistemaASP.NET.Models.Modulo>
+
+<div class="container-fluid">
+    <h2 class="mb-4">Gerenciamento de Módulos</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover w-100">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var modulo in Model)
+                    {
+                        <tr>
+                            <td>@modulo.Nome</td>
+                            <td>@modulo.Descricao</td>
+                            <td class="text-center">
+                                <a asp-controller="Modulo" asp-action="Details" asp-route-id="@modulo.Id" class="btn btn-info btn-sm mx-1">Detalhes</a>
+                                <a asp-controller="Modulo" asp-action="Edit" asp-route-id="@modulo.Id" class="btn btn-warning btn-sm mx-1">Editar</a>
+                                <a asp-controller="Modulo" asp-action="Delete" asp-route-id="@modulo.Id" class="btn btn-danger btn-sm mx-1">Excluir</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center">Nenhum módulo encontrado.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end mt-3">
+        <a asp-controller="Modulo" asp-action="Create" class="btn btn-primary">Criar Novo Módulo</a>
+    </div>
+</div>

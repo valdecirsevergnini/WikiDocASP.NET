@@ -3,6 +3,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace WikiSistemaASP.NET.Migrations
 {
     /// <inheritdoc />
@@ -18,7 +20,7 @@ namespace WikiSistemaASP.NET.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Nome = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false)
+                    Descricao = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,9 +67,27 @@ namespace WikiSistemaASP.NET.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Modulos",
+                columns: new[] { "Id", "Descricao", "Nome" },
+                values: new object[,]
+                {
+                    { 1, "Módulo básico de introdução ao ASP.NET.", "Introdução ao ASP.NET" },
+                    { 2, "Módulo sobre EF Core.", "Entity Framework Core" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Usuarios",
                 columns: new[] { "Id", "IsAdmin", "Nome", "Senha", "Username" },
                 values: new object[] { 1, true, "Administrador do Sistema", "admin123", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "Topicos",
+                columns: new[] { "Id", "Conteudo", "ImageUrl", "ModuloId", "Titulo", "VideoUrl" },
+                values: new object[,]
+                {
+                    { 1, "Introdução ao ASP.NET.", null, 1, "O que é ASP.NET?", null },
+                    { 2, "Passos para instalação.", null, 2, "Instalando o Entity Framework Core", null }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Topicos_ModuloId",

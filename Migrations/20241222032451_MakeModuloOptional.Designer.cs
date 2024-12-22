@@ -11,8 +11,8 @@ using WikiSistemaASP.NET.Data;
 namespace WikiSistemaASP.NET.Migrations
 {
     [DbContext(typeof(WikiDbContext))]
-    [Migration("20241217035821_AddDescricaoToModulo")]
-    partial class AddDescricaoToModulo
+    [Migration("20241222032451_MakeModuloOptional")]
+    partial class MakeModuloOptional
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,20 @@ namespace WikiSistemaASP.NET.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Modulos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descricao = "Módulo básico de introdução ao ASP.NET.",
+                            Nome = "Introdução ao ASP.NET"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descricao = "Módulo sobre EF Core.",
+                            Nome = "Entity Framework Core"
+                        });
                 });
 
             modelBuilder.Entity("WikiSistemaASP.NET.Models.Topico", b =>
@@ -78,6 +92,22 @@ namespace WikiSistemaASP.NET.Migrations
                     b.HasIndex("ModuloId");
 
                     b.ToTable("Topicos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Conteudo = "Introdução ao ASP.NET.",
+                            ModuloId = 1,
+                            Titulo = "O que é ASP.NET?"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Conteudo = "Passos para instalação.",
+                            ModuloId = 2,
+                            Titulo = "Instalando o Entity Framework Core"
+                        });
                 });
 
             modelBuilder.Entity("WikiSistemaASP.NET.Models.Usuario", b =>

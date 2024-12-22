@@ -2,25 +2,45 @@
     ViewData["Title"] = "Wikidoc - Login";
 }
 
-<h1>Login</h1>
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <!-- Mensagem flutuante -->
+    <div id="admin-message" class="text-center bg-warning text-dark py-2 px-3 mb-3 shadow rounded" style="width: 100%; max-width: 500px;">
+        <i class="bi bi-person-circle me-2" style="font-size: 20px;"></i>
+        Caso não tenha acesso, fale com o administrador
+    </div>
 
-<form asp-action="Login" method="post">
-    <div class="form-group">
-        <label for="Username">Usuário</label>
-        <input name="Username" class="form-control" placeholder="Digite seu usuário" required />
+    <!-- Conteúdo da página -->
+    <div class="card p-4 shadow" style="width: 100%; max-width: 500px;">
+        <h1 class="text-center mb-4">Login</h1>
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label for="Username">Usuário</label>
+                <input name="Username" class="form-control" placeholder="Digite seu usuário" required />
+            </div>
+            <div class="form-group mt-3">
+                <label for="Senha">Senha</label>
+                <input name="Senha" type="password" class="form-control" placeholder="Digite sua senha" required />
+            </div>
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            </div>
+        </form>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger mt-3">
+                @Html.ValidationSummary(false)
+            </div>
+        }
     </div>
-    <div class="form-group mt-3">
-        <label for="Senha">Senha</label>
-        <input name="Senha" type="password" class="form-control" placeholder="Digite sua senha" required />
-    </div>
-    <div class="form-group mt-4">
-        <button type="submit" class="btn btn-primary">Entrar</button>
-    </div>
-</form>
+</div>
 
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger mt-3">
-        @Html.ValidationSummary(false)
-    </div>
-}
+<!-- Script para exibir a mensagem -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const message = document.getElementById('admin-message');
+        message.style.display = 'block'; // Mostra a mensagem
+        setTimeout(() => {
+            message.style.display = 'none'; // Esconde a mensagem após 5 segundos
+        }, 5000);
+    });
+</script>

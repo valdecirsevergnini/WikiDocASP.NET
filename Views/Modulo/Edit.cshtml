@@ -1,0 +1,123 @@
+@model WikiSistemaASP.NET.Models.Modulo
+
+<div class="container-fluid">
+    <h2 class="text-center">Editar Módulo e Tópicos</h2>
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success text-center w-75 mx-auto">@TempData["MensagemSucesso"]</div>
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger text-center w-75 mx-auto">@TempData["MensagemErro"]</div>
+    }
+
+    <!-- Formulário para editar o módulo -->
+    <form asp-action="Edit" method="post" class="w-100">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Nome" class="control-label">Nome</label>
+            <input asp-for="Nome" class="form-control" placeholder="Digite o nome do módulo" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Descricao" class="control-label">Descrição</label>
+            <textarea asp-for="Descricao" class="editor form-control"></textarea>
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <hr />
+
+        <!-- Gerenciamento de Tópicos -->
+        <h4 class="text-center">Tópicos</h4>
+        <table class="table table-bordered table-hover w-100">
+            <thead class="table-dark">
+                <tr>
+                    <th>Título</th>
+                    <th>Conteúdo</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for (var i = 0; i < Model.Topicos.Count; i++)
+            {
+                var topico = Model.Topicos[i];
+                <tr>
+                    <td>
+                        <input type="hidden" name="topicos[@i].Id" value="@topico.Id" />
+                        <input type="hidden" name="topicos[@i].ModuloId" value="@Model.Id" />
+                        <input type="text" name="topicos[@i].Titulo" value="@topico.Titulo" class="form-control" required />
+                    </td>
+                    <td>
+                        <textarea name="topicos[@i].Conteudo" class="editor form-control" required>@topico.Conteudo</textarea>
+                    </td>
+                    <td class="text-center">
+                        <form asp-controller="Topico" asp-action="Delete" method="get" style="display:inline;">
+                            <input type="hidden" name="Id" value="@topico.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <!-- Botão para adicionar novo tópico -->
+        <div class="form-group mt-4">
+            <button type="button" class="btn btn-success" onclick="adicionarTopico()">Adicionar Novo Tópico</button>
+        </div>
+
+        <hr />
+
+        <!-- Botões de ação -->
+        <div class="form-group mt-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Salvar Alterações</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<!-- Inclusão do TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/lit61m3guuexe1jumlo5wyor55xb0fh54d52e4d7q6tckc7j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '.editor',
+        plugins: 'lists link image media table fullscreen code',
+        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media table | fullscreen code',
+        menubar: false,
+        height: 300,
+        branding: false,
+        image_uploadtab: true,
+        images_upload_url: '/Modulo/Upload'
+    });
+
+    function adicionarTopico() {
+        const tbody = document.querySelector('table tbody');
+        const index = tbody.children.length;
+        const newRow = document.createElement('tr');
+
+        newRow.innerHTML = `
+            <td>
+                <input type="hidden" name="topicos[${index}].Id" value="0" />
+                <input type="hidden" name="topicos[${index}].ModuloId" value="${document.querySelector('input[name="Id"]').value}" />
+                <input type="text" name="topicos[${index}].Titulo" class="form-control" placeholder="Digite o título" required />
+            </td>
+            <td>
+                <textarea name="topicos[${index}].Conteudo" class="editor form-control" placeholder="Digite o conteúdo" required></textarea>
+            </td>
+            <td class="text-center">Novo</td>
+        `;
+        tbody.appendChild(newRow);
+
+        tinymce.init({
+            selector: '.editor',
+            plugins: 'lists link image media table fullscreen code',
+            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media table | fullscreen code',
+            menubar: false,
+            height: 300,
+            branding: false,
+            image_uploadtab: true,
+            images_upload_url: '/Modulo/Upload'
+        });
+    }
+</script>
